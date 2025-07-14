@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fylo - החנות שלי</title>
+  <meta name="description" content="החנות שלך בפלטפורמת Fylo">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="shop-screen">
+    <h2>החנות של <span id="userDisplay"></span></h2>
+    <div id="productList"></div>
+    <input type="text" id="productName" placeholder="שם מוצר"/>
+    <input type="number" id="productPrice" placeholder="מחיר"/>
+    <button onclick="addProduct()">➕ הוסף מוצר</button>
+    <p id="limitMsg" style="color:red;"></p>
+  </div>
+  <script>
+    const username = localStorage.getItem("fyloUser") || "לא מזוהה";
+    document.getElementById("userDisplay").innerText = username;
+    let products = JSON.parse(localStorage.getItem("fyloProducts") || "[]");
+
+    function addProduct() {
+      if (products.length >= 20) {
+        document.getElementById("limitMsg").innerText = "הגעת למגבלה. שדרג ב־10 ש"ח";
+        return;
+      }
+      const name = document.getElementById("productName").value;
+      const price = document.getElementById("productPrice").value;
+      if (!name || !price) return;
+      products.push({ name, price });
+      localStorage.setItem("fyloProducts", JSON.stringify(products));
+      renderProducts();
+    }
+
+    function renderProducts() {
+      const list = document.getElementById("productList");
+      list.innerHTML = products.map(p => `<p>${p.name} - ₪${p.price}</p>`).join("");
+    }
+
+    renderProducts();
+  </script>
+</body>
+</html>

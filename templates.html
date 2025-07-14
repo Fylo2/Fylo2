@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fylo - בחר תבנית</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="template-screen">
+    <h2>בחר תבנית לחנות שלך</h2>
+    <button onclick="chooseTemplate('fashion')">חנות בגדים</button>
+    <button onclick="chooseTemplate('bakery')">מאפייה</button>
+    <button onclick="chooseTemplate('books')">ספרים</button>
+    <button onclick="chooseTemplate('custom')">מאפס</button>
+  </div>
+  <script>
+    function chooseTemplate(template) {
+      localStorage.setItem("fyloTemplate", template);
+      window.location.href = "shop.html";
+    }
+  </script>
+</body>
+</html>
